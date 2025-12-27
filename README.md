@@ -71,3 +71,7 @@ The application logic is contained within a single-file script for portability:
 This project is licensed under the MIT License.
 
 ---
+
+## Image
+
+<img width="311" height="338" alt="image" src="https://github.com/user-attachments/assets/fecac5eb-19d0-4948-bdfd-4b3a7876b098" />
