@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // 3 Variables de estado
+// 3 Variables de estado
 let boardState = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "O"; 
 let gameActive = true;
@@ -26,7 +27,7 @@ const winningConditions = [
     [0, 4, 8], [2, 4, 6]           
 ];
 
-//  Funciones de Firebase
+// --- FUNCIONES DE FIREBASE ---
 
 async function obtenerLeaderboardGlobal() {
     try {
@@ -42,10 +43,36 @@ async function obtenerLeaderboardGlobal() {
     }
 }
 
+// Nueva función para ver TODOS los ganadores en el Modal
+async function obtenerLeaderboardCompleto() {
+    const tableBody = document.getElementById('full-ranking-body');
+    if(!tableBody) return;
+    
+    tableBody.innerHTML = '<tr><td colspan="3">Cargando ranking...</td></tr>';
+    
+    try {
+        const snapshot = await db.collection('leaderboard')
+            .orderBy('wins', 'desc')
+            .get(); 
+        
+        tableBody.innerHTML = "";
+        snapshot.docs.forEach((doc, index) => {
+            const data = doc.data();
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${data.name}</td>
+                    <td>${data.wins}</td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error("Error cargando ranking completo:", error);
+    }
+}
+
 async function registrarVictoriaGlobal() {
-    
     const userRef = db.collection('leaderboard').doc(playerName.toLowerCase());
-    
     try {
         const doc = await userRef.get();
         if (doc.exists) {
@@ -64,7 +91,7 @@ async function registrarVictoriaGlobal() {
     }
 }
 
-// Logica del juego
+// --- LÓGICA DEL JUEGO ---
 
 function startGame() {
     const input = document.querySelector('#player-name');
@@ -74,6 +101,7 @@ function startGame() {
     document.querySelector('#display-name').innerText = `${playerName} (Jugador O)`;
     document.querySelector('#setup-section').style.display = "none";
     document.querySelector('#game-section').style.display = "block";
+    document.querySelector('#status').innerHTML = `Tu turno: <span>${playerName} (O)</span>`;
     
     obtenerLeaderboardGlobal();
 }
@@ -122,7 +150,6 @@ function ejecutarMovimiento(index, cell) {
 
 function checkResult() {
     let roundWon = false;
-
     for (let condition of winningConditions) {
         let [a, b, c] = condition;
         if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
@@ -178,18 +205,42 @@ function restartGame() {
 
 function actualizarLeaderboardUI() {
     const list = document.querySelector('#leaderboard-list');
-    list.innerHTML = leaderboard.map(u => `
+    if(!list) return;
+    list.innerHTML = leaderboard.map((u, i) => `
         <li>
-            <span>${u.name}</span>
+            <span>${i + 1}. ${u.name}</span>
             <strong>${u.wins} victorias</strong>
         </li>
     `).join('');
 }
 
-// Event Listeners
+function backToSetup() {
+    restartGame();
+    document.querySelector('#player-name').value = "";
+    document.querySelector('#setup-section').style.display = "block";
+    document.querySelector('#game-section').style.display = "none";
+    obtenerLeaderboardGlobal();
+}
+
+// --- LÓGICA DEL MODAL ---
+const modal = document.getElementById("ranking-modal");
+const viewMoreBtn = document.getElementById("view-full-ranking");
+const closeModal = document.querySelector(".close-modal");
+
+if(viewMoreBtn) {
+    viewMoreBtn.onclick = () => {
+        modal.style.display = "block";
+        obtenerLeaderboardCompleto();
+    };
+}
+if(closeModal) closeModal.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+// --- LISTENERS ---
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('#reset-btn').addEventListener('click', restartGame);
 document.querySelector('#start-game-btn').addEventListener('click', startGame);
+document.querySelector('#back-to-setup-btn').addEventListener('click', backToSetup);
 
 // Carga inicial
 obtenerLeaderboardGlobal();

@@ -33,19 +33,38 @@
             </div>
 
             <button id="reset-btn">Reiniciar Partida</button>
+            <button id="back-to-setup-btn" class="secondary-btn">Cambiar Jugador</button>
         </div>
 
-        <div class="leaderboard">
-            <h3>🏆 Salón de la Fama (Global)</h3>
+        <div class="leaderboard-preview">
+            <h3>🏆 Salón de la Fama</h3>
             <ul id="leaderboard-list"></ul>
+            <button id="view-full-ranking" class="view-more-btn">Ver Ranking Completo</button>
+        </div>
+    </div>
+
+    <div id="ranking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>🏆 Ranking Global Completo</h2>
+            <div class="modal-scroll-area">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Jugador</th>
+                            <th>Victorias</th>
+                        </tr>
+                    </thead>
+                    <tbody id="full-ranking-body">
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
     <script src="script.js"></script>
-    
 </body>
 </html>
