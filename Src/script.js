@@ -27,7 +27,7 @@ const winningConditions = [
     [0, 4, 8], [2, 4, 6]           
 ];
 
-// --- FUNCIONES DE FIREBASE ---
+// Funciones de firebase
 
 async function obtenerLeaderboardGlobal() {
     try {
@@ -91,7 +91,7 @@ async function registrarVictoriaGlobal() {
     }
 }
 
-// --- LÓGICA DEL JUEGO ---
+// Logica del juego
 
 function startGame() {
     const input = document.querySelector('#player-name');
@@ -222,7 +222,7 @@ function backToSetup() {
     obtenerLeaderboardGlobal();
 }
 
-// --- LÓGICA DEL MODAL ---
+// Logica del modal de ranking completo
 const modal = document.getElementById("ranking-modal");
 const viewMoreBtn = document.getElementById("view-full-ranking");
 const closeModal = document.querySelector(".close-modal");
@@ -236,7 +236,26 @@ if(viewMoreBtn) {
 if(closeModal) closeModal.onclick = () => modal.style.display = "none";
 window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
 
-// --- LISTENERS ---
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Leer la preferencia guardada al cargar
+if (localStorage.getItem('theme') === 'light') {
+    body.classList.add('light-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-mode');
+    
+    // Guardar la preferencia
+    if (body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+// Events
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('#reset-btn').addEventListener('click', restartGame);
 document.querySelector('#start-game-btn').addEventListener('click', startGame);

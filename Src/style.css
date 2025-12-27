@@ -191,3 +191,47 @@ button:hover { background: var(--accent-dark); transform: scale(1.02); }
     cursor: pointer;
     border-radius: 5px;
 }
+
+:root {
+    --bg-color: #1a1a1a;
+    --container-bg: #2c3e50;
+    --text-color: #ffffff;
+    --cell-bg: #34495e;
+    --accent-color: #f1c40f;
+    --button-bg: #2980b9;
+}
+
+body.light-mode {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --text-color: #2c3e50;
+    --cell-bg: #ecf0f1;
+    --accent-color: #d35400;
+    --button-bg: #3498db;
+}
+
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.game-container {
+    background-color: var(--container-bg);
+}
+
+.cell {
+    background-color: var(--cell-bg);
+    color: var(--text-color);
+}
+
+.theme-btn {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
