@@ -3,27 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe Pro</title>
+    <title>Tic Tac Toe Pro - KillVersion </title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Assets/icon.png">
+
 </head>
 <body>
     <div class="game-container">
-        <h1>Tic Tac Toe</h1>
-        <div class="status" id="status">Turno de: <span>X</span></div>
-        
-        <div class="board" id="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
+        <h1>Tic Tac Toe Pro</h1>
+
+        <div id="setup-section">
+            <p>Introduce tu nombre para competir:</p>
+            <input type="text" id="player-name" placeholder="Tu nombre" maxlength="12">
+            <button id="start-game-btn">Empezar Juego</button>
         </div>
 
-        <button id="reset-btn">Reiniciar Juego</button>
+        <div id="game-section" style="display: none;">
+            <div class="status" id="status">Bienvenido, <span id="display-name"></span>!</div>
+            
+            <div class="board" id="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+
+            <button id="reset-btn">Reiniciar Partida</button>
+        </div>
+
+        <div class="leaderboard">
+            <h3>🏆 Salón de la Fama</h3>
+            <ul id="leaderboard-list"></ul>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
