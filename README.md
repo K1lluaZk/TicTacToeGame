@@ -5,7 +5,7 @@
 
 
 <p align="center">
-  🌐 <a href="https://tictactoewebapphunterx.netlify.app/">Ver Demo en Vivo</a>
+  🌐 <a href="https://tictactoewebapphunterx.netlify.app/">Watch live demo</a>
 </p>
 
 
