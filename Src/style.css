@@ -1,45 +1,86 @@
+/* 1. VARIABLES Y COLORES (SISTEMA UNIFICADO) */
 :root {
-    --bg-color: #f4f7f9;
-    --cell-color: #ffffff;
-    --text-color: #2c3e50;
-    --accent-blue: #3498db;
-    --accent-dark: #2980b9;
+    /* Modo Oscuro (Predeterminado) */
+    --bg-color: #1a1a1a;
+    --container-bg: #2c3e50;
+    --text-color: #ffffff;
+    --cell-bg: #34495e;
+    --accent-color: #f1c40f;
+    --button-bg: #2980b9;
     --x-color: #e74c3c;
     --o-color: #2ecc71;
+    --border-light: rgba(255,255,255,0.1);
 }
 
+body.light-mode {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --text-color: #2c3e50;
+    --cell-bg: #ecf0f1;
+    --accent-color: #d35400;
+    --button-bg: #3498db;
+    --border-light: #edf2f7;
+}
+
+/* 2. ESTILOS BASE */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: radial-gradient(circle at top right, #e3f2fd, #f4f7f9);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 .game-container {
-    background: white;
+    background-color: var(--container-bg);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     text-align: center;
     width: 350px;
 }
 
-h1 { margin-top: 0; color: var(--accent-dark); letter-spacing: -1px; }
+h1 { margin: 0 0 15px; color: var(--accent-color); letter-spacing: -1px; }
 
+/* 3. INPUTS Y BOTONES */
 #setup-section input {
     padding: 10px;
-    border: 2px solid #edf2f7;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
     margin-bottom: 15px;
     width: 80%;
+    background: var(--cell-bg);
+    color: var(--text-color);
 }
 
+button {
+    background: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-.status { margin-bottom: 20px; font-weight: bold; color: var(--accent-blue); }
+button:hover { filter: brightness(1.2); transform: scale(1.02); }
+
+.theme-btn, .view-more-btn {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    margin: 10px 0;
+}
+
+.secondary-btn { background-color: #6c757d; }
+
+/* 4. TABLERO Y CELDAS */
+.status { margin-bottom: 20px; font-weight: bold; color: var(--button-bg); }
 
 .board {
     display: grid;
@@ -50,29 +91,27 @@ h1 { margin-top: 0; color: var(--accent-dark); letter-spacing: -1px; }
 
 .cell {
     aspect-ratio: 1 / 1;
-    background-color: var(--cell-color);
-    border: 1px solid #edf2f7;
+    background-color: var(--cell-bg);
     border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     transition: all 0.2s;
+    border: 1px solid var(--border-light);
 }
 
-.cell:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(52,152,219,0.1); }
+.cell:hover { transform: translateY(-3px); }
 .cell.x { color: var(--x-color); }
 .cell.o { color: var(--o-color); }
 
+/* 5. LEADERBOARD Y MODAL */
 .leaderboard {
-    margin-top: 30px;
-    border-top: 2px solid #f8f9fa;
+    margin-top: 25px;
+    border-top: 1px solid var(--border-light);
     padding-top: 15px;
 }
-
-.leaderboard h3 { font-size: 0.9rem; text-transform: uppercase; color: #95a5a6; }
 
 #leaderboard-list {
     list-style: none;
@@ -82,96 +121,37 @@ h1 { margin-top: 0; color: var(--accent-dark); letter-spacing: -1px; }
 }
 
 #leaderboard-list li {
-    padding: 5px 0;
-    border-bottom: 1px solid #fcfcfc;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
     display: flex;
     justify-content: space-between;
 }
 
-
-button {
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-button:hover { background: var(--accent-dark); transform: scale(1.02); }
-
-
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-.cell.x, .cell.o { animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-
-.status span {
-    transition: all 0.3s;
-}
-
-.status.thinking {
-    opacity: 0.6;
-    font-style: italic;
-}
-
-.controls {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.secondary-btn {
-    background-color: #6c757d; 
-    color: white;
-}
-
-.secondary-btn:hover {
-    background-color: #5a6268;
-}
-
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 100;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    background-color: #2c3e50;
+    background-color: var(--container-bg);
     margin: 10% auto;
-    padding: 20px;
+    padding: 25px;
     border-radius: 15px;
     width: 85%;
     max-width: 450px;
-    color: white;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-light);
 }
 
-.modal-scroll-area {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 15px;
-}
-
-.ranking-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
+.ranking-table { width: 100%; border-collapse: collapse; }
 .ranking-table th, .ranking-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .close-modal {
@@ -179,26 +159,49 @@ button:hover { background: var(--accent-dark); transform: scale(1.02); }
     right: 20px; top: 10px;
     font-size: 30px;
     cursor: pointer;
-    color: #f1c40f;
+    color: var(--accent-color);
 }
 
-.view-more-btn {
-    background: transparent;
-    border: 1px solid #f1c40f;
-    color: #f1c40f;
-    padding: 8px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+/* 6. ANIMACIONES */
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.cell.x, .cell.o { animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes celebrate {
+    from { transform: scale(1); box-shadow: 0 0 10px var(--accent-color); }
+    to { transform: scale(1.1); box-shadow: 0 0 25px var(--accent-color); }
 }
 
+.cell.winner {
+    animation: celebrate 0.8s ease-in-out infinite alternate;
+    background-color: var(--accent-color) !important;
+    color: #000 !important;
+}
+
+.cell.cpu-winner {
+    animation: celebrate 0.8s ease-in-out infinite alternate;
+    background-color: var(--x-color) !important;
+    color: white !important;
+}
+
+@keyframes burn {
+    from { filter: drop-shadow(0 0 2px orange); transform: scale(1); }
+    to { filter: drop-shadow(0 0 7px red); transform: scale(1.2); }
+}
+.fire-icon { animation: burn 0.5s infinite alternate; display: inline-block; }/* 1. VARIABLES Y COLORES (SISTEMA UNIFICADO) */
 :root {
+    /* Modo Oscuro (Predeterminado) */
     --bg-color: #1a1a1a;
     --container-bg: #2c3e50;
     --text-color: #ffffff;
     --cell-bg: #34495e;
     --accent-color: #f1c40f;
     --button-bg: #2980b9;
+    --x-color: #e74c3c;
+    --o-color: #2ecc71;
+    --border-light: rgba(255,255,255,0.1);
 }
 
 body.light-mode {
@@ -208,30 +211,175 @@ body.light-mode {
     --cell-bg: #ecf0f1;
     --accent-color: #d35400;
     --button-bg: #3498db;
+    --border-light: #edf2f7;
 }
 
-
+/* 2. ESTILOS BASE */
 body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background 0.3s ease, color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: all 0.3s ease;
 }
 
 .game-container {
     background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 350px;
 }
 
-.cell {
-    background-color: var(--cell-bg);
+h1 { margin: 0 0 15px; color: var(--accent-color); letter-spacing: -1px; }
+
+/* 3. INPUTS Y BOTONES */
+#setup-section input {
+    padding: 10px;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    width: 80%;
+    background: var(--cell-bg);
     color: var(--text-color);
 }
 
-.theme-btn {
-    padding: 8px 15px;
+button {
+    background: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 20px;
-    border: 1px solid var(--accent-color);
-    background: transparent;
-    color: var(--accent-color);
-    margin-bottom: 10px;
+    font-weight: bold;
+    transition: 0.3s;
 }
+
+button:hover { filter: brightness(1.2); transform: scale(1.02); }
+
+.theme-btn, .view-more-btn {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    margin: 10px 0;
+}
+
+.secondary-btn { background-color: #6c757d; }
+
+/* 4. TABLERO Y CELDAS */
+.status { margin-bottom: 20px; font-weight: bold; color: var(--button-bg); }
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    aspect-ratio: 1 / 1;
+    background-color: var(--cell-bg);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid var(--border-light);
+}
+
+.cell:hover { transform: translateY(-3px); }
+.cell.x { color: var(--x-color); }
+.cell.o { color: var(--o-color); }
+
+/* 5. LEADERBOARD Y MODAL */
+.leaderboard {
+    margin-top: 25px;
+    border-top: 1px solid var(--border-light);
+    padding-top: 15px;
+}
+
+#leaderboard-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+#leaderboard-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--container-bg);
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 15px;
+    width: 85%;
+    max-width: 450px;
+    position: relative;
+    border: 1px solid var(--border-light);
+}
+
+.ranking-table { width: 100%; border-collapse: collapse; }
+.ranking-table th, .ranking-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px; top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--accent-color);
+}
+
+/* 6. ANIMACIONES */
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.cell.x, .cell.o { animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes celebrate {
+    from { transform: scale(1); box-shadow: 0 0 10px var(--accent-color); }
+    to { transform: scale(1.1); box-shadow: 0 0 25px var(--accent-color); }
+}
+
+.cell.winner {
+    animation: celebrate 0.8s ease-in-out infinite alternate;
+    background-color: var(--accent-color) !important;
+    color: #000 !important;
+}
+
+.cell.cpu-winner {
+    animation: celebrate 0.8s ease-in-out infinite alternate;
+    background-color: var(--x-color) !important;
+    color: white !important;
+}
+
+@keyframes burn {
+    from { filter: drop-shadow(0 0 2px orange); transform: scale(1); }
+    to { filter: drop-shadow(0 0 7px red); transform: scale(1.2); }
+}
+.fire-icon { animation: burn 0.5s infinite alternate; display: inline-block; }
