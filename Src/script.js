@@ -14,7 +14,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // 3 Variables de estado
-// --- STATE VARIABLES ---
 let boardState = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "O"; 
 let isGameActive = true;
@@ -27,7 +26,7 @@ const WINNING_CONDITIONS = [
     [0, 4, 8], [2, 4, 6]           
 ];
 
-// --- FIREBASE FUNCTIONS (Sin cambios) ---
+// Firebase funciones
 
 async function fetchGlobalLeaderboard() {
     try {
@@ -77,7 +76,7 @@ async function resetStreakInFirebase() {
     catch (error) { console.log("Player record not found for streak reset"); }
 }
 
-// --- GAME LOGIC ---
+// Logica del juego
 
 function startGame() {
     const input = document.querySelector('#player-name');
@@ -87,16 +86,16 @@ function startGame() {
     
     playerName = input.value.trim();
 
-    // Verificamos si el elemento existe antes de asignarle texto para evitar el error
+    
     if (displayNameElem) {
         displayNameElem.innerText = `${playerName} (Jugador O)`;
     }
 
-    // Cambiamos de sección
+    
     document.querySelector('#setup-section').style.display = "none";
     document.querySelector('#game-section').style.display = "block";
     
-    // Resetear el estado del juego para una nueva partida limpia
+    
     restartGame(); 
     
     document.querySelector('#status').innerHTML = `Tu turno: <span>${playerName} (O)</span>`;
@@ -116,12 +115,11 @@ function handleCellClick(event) {
     }
 }
 
-// MODIFICADO: Dificultad Media con Minimax
+// Dificultad con minimax
 function executeCpuTurn() {
     if (!isGameActive) return;
 
     let move;
-    // 60% de probabilidad de hacer la jugada perfecta, 40% aleatoria
     const isSmartMove = Math.random() < 0.6;
 
     if (isSmartMove) {
@@ -152,7 +150,7 @@ function executeCpuTurn() {
     }
 }
 
-// NUEVA FUNCIÓN: Algoritmo Minimax
+// Algoritmo Minimax
 function minimax(board, depth, isMaximizing) {
     let result = checkWinnerSim(board);
     if (result === "X") return 10 - depth;
@@ -184,7 +182,7 @@ function minimax(board, depth, isMaximizing) {
     }
 }
 
-// NUEVA FUNCIÓN: Simulador de victoria para la IA
+// Simulador de victoria para la IA
 function checkWinnerSim(board) {
     for (let condition of WINNING_CONDITIONS) {
         let [a, b, c] = condition;
@@ -270,28 +268,28 @@ function updateLeaderboardUI() {
 }
 
 function backToSetup() {
-    // 1. Detener cualquier juego activo
+    
     isGameActive = false;
     
-    // 2. Limpiar el tablero visual y lógicamente
+    
     boardState = ["", "", "", "", "", "", "", "", ""];
     document.querySelectorAll('.cell').forEach(cell => {
         cell.innerText = "";
         cell.classList.remove('x', 'o', 'winner', 'cpu-winner');
     });
 
-    // 3. Resetear el input del nombre (opcional)
+    
     const input = document.querySelector('#player-name');
     if (input) input.value = "";
 
-    // 4. Cambiar la visibilidad de las secciones
+    
     document.querySelector('#setup-section').style.display = "block";
     document.querySelector('#game-section').style.display = "none";
     
-    // 5. Refrescar el ranking
+    
     fetchGlobalLeaderboard();
 }
-// --- UI COMPONENTS ---
+// Modal y tema oscuro/claro
 const rankingModal = document.getElementById("ranking-modal");
 const viewFullBtn = document.getElementById("view-full-ranking");
 const closeModalBtn = document.querySelector(".close-modal");
@@ -309,7 +307,7 @@ if(themeToggleButton) {
     });
 }
 
-// --- EVENT LISTENERS ---
+// Events
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('#reset-btn').addEventListener('click', restartGame);
 document.querySelector('#start-game-btn').addEventListener('click', startGame);

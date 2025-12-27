@@ -1,6 +1,6 @@
-/* 1. VARIABLES Y COLORES (SISTEMA UNIFICADO) */
+
 :root {
-    /* Modo Oscuro (Predeterminado) */
+    
     --bg-color: #1a1a1a;
     --container-bg: #2c3e50;
     --text-color: #ffffff;
@@ -22,7 +22,6 @@ body.light-mode {
     --border-light: #edf2f7;
 }
 
-/* 2. ESTILOS BASE */
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg-color);
@@ -46,7 +45,7 @@ body {
 
 h1 { margin: 0 0 15px; color: var(--accent-color); letter-spacing: -1px; }
 
-/* 3. INPUTS Y BOTONES */
+
 #setup-section input {
     padding: 10px;
     border: 2px solid var(--border-light);
@@ -79,7 +78,7 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
 
 .secondary-btn { background-color: #6c757d; }
 
-/* 4. TABLERO Y CELDAS */
+
 .status { margin-bottom: 20px; font-weight: bold; color: var(--button-bg); }
 
 .board {
@@ -106,7 +105,7 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
 .cell.x { color: var(--x-color); }
 .cell.o { color: var(--o-color); }
 
-/* 5. LEADERBOARD Y MODAL */
+
 .leaderboard {
     margin-top: 25px;
     border-top: 1px solid var(--border-light);
@@ -162,7 +161,7 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
     color: var(--accent-color);
 }
 
-/* 6. ANIMACIONES */
+
 @keyframes popIn {
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
@@ -190,9 +189,9 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
     from { filter: drop-shadow(0 0 2px orange); transform: scale(1); }
     to { filter: drop-shadow(0 0 7px red); transform: scale(1.2); }
 }
-.fire-icon { animation: burn 0.5s infinite alternate; display: inline-block; }/* 1. VARIABLES Y COLORES (SISTEMA UNIFICADO) */
+.fire-icon { animation: burn 0.5s infinite alternate; display: inline-block; }
 :root {
-    /* Modo Oscuro (Predeterminado) */
+    
     --bg-color: #1a1a1a;
     --container-bg: #2c3e50;
     --text-color: #ffffff;
@@ -214,7 +213,7 @@ body.light-mode {
     --border-light: #edf2f7;
 }
 
-/* 2. ESTILOS BASE */
+
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: var(--bg-color);
@@ -238,7 +237,7 @@ body {
 
 h1 { margin: 0 0 15px; color: var(--accent-color); letter-spacing: -1px; }
 
-/* 3. INPUTS Y BOTONES */
+
 #setup-section input {
     padding: 10px;
     border: 2px solid var(--border-light);
@@ -271,7 +270,7 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
 
 .secondary-btn { background-color: #6c757d; }
 
-/* 4. TABLERO Y CELDAS */
+
 .status { margin-bottom: 20px; font-weight: bold; color: var(--button-bg); }
 
 .board {
@@ -298,7 +297,7 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
 .cell.x { color: var(--x-color); }
 .cell.o { color: var(--o-color); }
 
-/* 5. LEADERBOARD Y MODAL */
+
 .leaderboard {
     margin-top: 25px;
     border-top: 1px solid var(--border-light);
@@ -354,7 +353,6 @@ button:hover { filter: brightness(1.2); transform: scale(1.02); }
     color: var(--accent-color);
 }
 
-/* 6. ANIMACIONES */
 @keyframes popIn {
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
