@@ -189,7 +189,18 @@ function checkGameResult() {
             registerGlobalVictory(); 
         } else {
             statusContainer.innerText = `¡Derrota! 🤖 La CPU ha ganado`;
+            
+            // Lógica para perder la racha inmediatamente
             resetStreakInFirebase();
+            
+            // Actualizar el array local para que el fuego desaparezca de la UI sin recargar
+            leaderboardData = leaderboardData.map(user => {
+                if (user.name.toLowerCase() === playerName.toLowerCase()) {
+                    return { ...user, currentStreak: 0 };
+                }
+                return user;
+            });
+            updateLeaderboardUI();
         }
         finishGame();
         return;
