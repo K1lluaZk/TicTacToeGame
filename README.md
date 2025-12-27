@@ -3,10 +3,7 @@
 <p align="center">A minimalist terminal-based implementation of the classic game using Python.</p>
 </p>
 
-<p align="center">
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-</p>
+<p align="center"> <img src="https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python&logoColor=white" alt="Python Version"> <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"> </p>
 
 ---
 
@@ -64,7 +61,7 @@ The source code follows a functional programming approach with a clear separatio
 
 ## Author
 
-* **Mario** - [GitHub Profile](https://github.com/yourusername)
+* **Mario** - [GitHub Profile](https://github.com/K1lluaZk)
 
 ## License
 
